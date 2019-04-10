@@ -12,10 +12,13 @@ http://forum.arduino.cc/index.php?topic=16612#msg121031
 
 # Power information:
 The built in batteries (8x2400 mAh NiMH) provide a stable 5v supply via a DC/DC buck converter to the raspi power connector.
+
 The USB cable of the tank can be plugged into the raspi, or into a PC for debugging/testing.
+
 Any configuration of supplying power to the raspi and the controller and the motors should work without complications. If you smell smoke, unplug everything.
 
-The motors can only be powered from the battery, by turning on the power switch on the bottom. No other source can power them.
+The motors can only be powered from the battery, by turning on the power switch on the bottom. No other source can power them
+.
 The battery can only be charged by plugging in any 12v adapter to the bottom, and turning the power switch off. Charge time is 4-8 hours. Do not leave the charger plugged in for more than 24 hours. 
 
 # DO NOT:
@@ -24,13 +27,14 @@ Run the tracks forward and backward rapidly. This will destroy the gearboxes.
 
 # Required libraries:
 My fork of the gyro driver TODO
+
 My fork of the software spi driver TODO
 
 # Command protocol:
 
 Send Commands over serial to the tank. You can send multiple commands, separated by ';' characters. Commands are processed on '\n' newline characters.
-e.g.: "LL:50;RR:-50;LA:1\n" means turn right slowly, and turn on the laser
 
+e.g.: "LL:50;RR:-50;LA:1\n" means turn right slowly, and turn on the laser
 
 ## Timeout
 All motion (turret and track) and lights time out and are set to 0 after the last command times out
@@ -80,10 +84,14 @@ Turn the lights off/on
 
 #### GY[0;255]
 Set the gyro update rate to 10 x [1;255] ms. Setting it to 0 prints the gyro status, then stops updates. Send "GY:0" commands repeatedly to 'query' the gyro. The gyro returns the following packet:
+
 sprintf(gyrobuf, "GYRO:\tDT=%lu\tAX=%i\tAY=%i\tAZ=%i\tGX=%i\tGY=%i\tGZ=%i\tMX=%i\tMY=%i\tMZ=%i\tTDC=%i",millis(),
 	mpu.ax, mpu.ay, mpu.az, mpu.gx, mpu.gy, mpu.gz, mpu.mx, mpu.my, mpu.mz, gyrotemperature);
+	
  Units are the following: 
+ 
  	mpu.set_acc_scale(scale_4g); //+- 4g scaled to an int16
+	
 	mpu.set_gyro_scale(scale_500dps); //+- 500 degrees per second scaled to an int16
 
 #### DB:[0;1]
