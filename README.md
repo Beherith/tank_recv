@@ -55,32 +55,32 @@ Set the PWM of the left track backward driver to [0;255]
 Set the PWM of the right track forward driver to [0;255]
 
 #### RB:[0;255]
-Set the PWM of the right track backward driver to [0;255]
+Set the PWM of the right track backward driver to [0;255] 
 
 
 #### TL:[0;255]
-Turn the turret left at speed [0;255]
+Turn the turret left at speed [0;255]. Default 0.
 
 #### TR:[0;255]
-Turn the turret right at speed [0;255]
+Turn the turret right at speed [0;255]. Default 0.
 
 **Note: The turret left-right has hardware endstops. No damage will be done on reaching the left and right endstops, and the turret will stop turning
 
 #### TU:[0;255]
-Turn the turret up/down at speed [0;255]
+Turn the turret up/down at speed [0;255]. Default 0.
 #### TD:[0;255]
-Turn the turret down/up at speed [0;255]
+Turn the turret down/up at speed [0;255]. Default 0.
 
 **Note: The turret up down is circular. After going down fully, it will start to go up. It is your job to calibrate this
 
 #### FP:[0;1]
-Fire the cannon! This will fire the cannon in approx 500 ms. Sending an FP:1 command is the way to fire, as the system checks wether the cannon has returned to it's default position, and consumes the bit from the status register
+Fire the cannon! This will fire the cannon in approx 500 ms. Sending an FP:1 command is the way to fire, as the system checks wether the cannon has returned to it's default position, and consumes the bit from the status register. Sometimes fires are incomplete. Dealwithit.jpg
 
 #### LA:[0;1]
-Turn off/on the laser
+Turn off/on the laser. Does not turn off on timeout. Default off (0)
 
 #### LI:[0;1]
-Turn the lights off/on
+Turn the lights off/on. Lights turn OFF automatically if the tank ever times out. E.g. if you dont send a packet for TO x 10ms, then it will time out and stop all motors and turn off the lights. Default off (0)
 
 #### GY[0;255]
 Set the gyro update rate to 10 x [1;255] ms. Setting it to 0 prints the gyro status, then stops updates. Send "GY:0" commands repeatedly to 'query' the gyro. The gyro returns the following packet:
@@ -93,15 +93,16 @@ sprintf(gyrobuf, "GYRO:\tDT=%lu\tAX=%i\tAY=%i\tAZ=%i\tGX=%i\tGY=%i\tGZ=%i\tMX=%i
  	mpu.set_acc_scale(scale_4g); //+- 4g scaled to an int16
 	
 	mpu.set_gyro_scale(scale_500dps); //+- 500 degrees per second scaled to an int16
+Default is 100x10ms
 
 #### DB:[0;1]
-Turn debug output off/on. 
+Turn debug output off/on. Default off.
 
 #### RA:[0;1]
-Turn radio off/on. Dont turn it on, its broken (TM)
+Turn radio off/on. Dont turn it on, its broken (TM). Default off (0)
 
 #### CH[0;127]
-Set radio channel to [0;127]
+Set radio channel to [0;127]. Default 127.
 
 #### TO:[1;255]
-Set command timeout to 10x[1;255] milliseconds. 
+Set command timeout to 10x[1;255] milliseconds. All motors are set to 0 and lights are turned off when no commmand is received for TO x 10ms time. Default 30x10ms
